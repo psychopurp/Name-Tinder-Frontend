@@ -20,7 +20,7 @@
 </view>
 <view wx:else class="list">
   <view class="list__title">
-    共同喜欢
+    好友
     <navigator open-type="navigateTo" url="/pages/setting/index" class="list__setting">
       <image src="../../assets/image/setting.png" class="setting-icon"></image>
     </navigator>

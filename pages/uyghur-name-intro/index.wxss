@@ -1,0 +1,29 @@
+page {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-content: center;
+  height: 100%;
+  width: 100%;
+}
+.title {
+  margin-bottom: 20rpx;
+  margin-top: 206rpx;
+}
+.choose {
+  margin: 0 auto;
+  margin-top: 50rpx;
+  width: 650rpx;
+  line-height: 150rpx;
+  border-radius: 17.35rpx;
+  color: #000;
+}
+button {
+  padding: 0;
+  -webkit-tap-highlight-color:transparent;
+  overflow: auto;
+}
+
+button::after {
+  border: none;
+}

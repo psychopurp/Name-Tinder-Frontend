@@ -1,0 +1,51 @@
+<view class="page">
+  <!-- <block wx:if="{{showShare}}">
+    <view class="no-match" >
+      <view class="text">
+        点赞次数已用完
+      </view>
+      <view class="text">
+        邀请更多人
+      </view>
+      <view class="text">
+        获取更多点赞次数
+      </view>
+      <button class="share" open-type="share">
+        分享
+      </button>
+    </view>
+  </block> -->
+  <!-- <block wx:else> -->
+    <block>
+      <view
+          bindtouchstart="onTouchStart"
+          bindtouchmove="onTouchMove"
+          bindtouchend="onTouchEnd"
+          style="{{ componentStyle }}"
+          class="swipe-card swipe-card-c"
+      >
+        <view
+          style="{{ item.style }}"
+          wx:for="{{cards}}"
+          wx:key="{{item.index}}"
+          class="block {{item.direction}} {{item.className ?  item.className : ''}}"
+        >
+          {{ item.text }}
+          <!-- <text wx:if="{{item.userInfo}}" class="also-like-text">❤️"{{item.userInfo.nickName}}"也喜欢这个名字</text> -->
+        </view>
+      </view>
+      <view wx:if="{{!noCard}}" class="btns">
+        <view bindtap="swipeLeft" class="btn btn__dislike">
+          <image src="../../assets/image/dislike.png"></image>
+        </view>
+        <view bindtap="swipeRight" class="btn btn__like">
+          <image src="../../assets/image/like.png"></image>
+        </view>
+      </view>
+    </block>
+    <view wx:if="{{noCard}}" class="no-card">
+      <text>暂无更多姓名供选择</text>
+      <view class="button" bindtap="onReview">再看一遍</view>
+    </view>
+  <!-- </block> -->
+</view>

@@ -1,0 +1,13 @@
+
+.nav {
+}
+
+.home-icon {
+  display: block;
+  width: 64rpx;
+  height: 64rpx;
+  margin-left: 10rpx;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}

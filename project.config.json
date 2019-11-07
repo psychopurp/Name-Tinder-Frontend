@@ -1,0 +1,106 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"enhance": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.2.1",
+	"appid": "wx329dbba64fc7a54a",
+	"projectname": "name-tinder",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 4,
+			"list": [
+				{
+					"id": 0,
+					"name": "name-swipe",
+					"pathName": "pages/name-swipe/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "uyghur-name-intro",
+					"pathName": "pages/uyghur-name-intro/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "han-name-intro",
+					"pathName": "pages/han-name-intro/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "match",
+					"pathName": "pages/match/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "likelist",
+					"pathName": "pages/likelist/index",
+					"query": "groupId=5ced681e3c91b32d2785c7a5",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "setting",
+					"pathName": "pages/setting/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "share",
+					"pathName": "pages/share/index",
+					"query": "groupId=5ced67943c91b32d2785c7a1&config=%7B%22type%22%3A%220%22%2C%22gender%22%3A%222%22%7D",
+					"scene": null
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,51 @@
+<view class="group">
+  <view class="group__title">
+    探索
+  </view>
+  <view class="group__row">
+    <view class="group__label">
+      名字
+    </view>
+    <picker
+      bindchange="bindTypeChange"
+      value="{{ type }}"
+      range="{{ typeRange }}"
+      class="group__content"
+    >
+      {{ typeRange[type] }}
+    </picker>
+    <view class="arrow right"></view>
+  </view>
+  <view wx:if="{{ type == 1 }}" class="group__row">
+    <view class="group__label">
+      姓氏
+    </view>
+    <input
+      maxlength="2"
+      class="group__content"
+      type="text"
+      value="{{ lastName }}"
+      type="text"
+      bindinput="onInput"
+    />
+    <view class="arrow right"></view>
+  </view>
+  <view class="group__row">
+    <view class="group__label">
+      性别
+    </view>
+    <picker
+      bindchange="bindGenderChange"
+      value="{{ gender }}"
+      range="{{ genderRange }}"
+      class="group__content"
+    >
+      {{ genderRange[gender] }}
+    </picker>
+    <view class="arrow right"></view>
+  </view>
+  <button wx:if="{{showButton}}" bindtap="onSave" type="primary" class="button">
+    保存
+  </button>
+
+</view>

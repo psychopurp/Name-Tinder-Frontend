@@ -1,0 +1,17 @@
+
+<block wx:if="{{loading}}">
+</block>
+<block wx:else>
+  <block wx:if="{{showOpenSettingButton}}">
+    <button class="choose button" open-type="openSetting" bindopensetting="callback">取中文名</button>
+    <button class="choose button" open-type="openSetting" bindopensetting="callback">取哈萨克语名</button>
+  </block>
+  <block wx:else>
+    <div class="choose" bindtap="onJump" data-type="1" data-url="/pages/han-name-intro/index">
+      取中文名
+    </div>
+    <div class="choose" bindtap="onJump" data-type="0" data-url="/pages/uyghur-name-intro/index">
+      取哈萨克语名
+    </div>
+  </block>
+</block>

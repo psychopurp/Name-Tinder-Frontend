@@ -1,0 +1,33 @@
+page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 100rpx;
+}
+
+.choose {
+  width: 650rpx;
+  line-height: 150rpx;
+  margin: 0 auto;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 9px 0 rgba(74,74,74,0.15);
+  border-radius: 17.35rpx;
+  font-size: 36rpx;
+  margin-top: -100rpx;
+}
+
+.choose.button {
+  padding: 0;
+  -webkit-tap-highlight-color:transparent;
+  overflow: auto;
+}
+
+button::after {
+  border: none;
+}
+.choose + .choose {
+  margin-top: 25rpx;
+}

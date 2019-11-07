@@ -1,0 +1,23 @@
+<view class="title">
+  选择性别
+</view>
+<!-- <navigator class="choose boy" open-type="switchTab" url="/pages/name-swipe/index?type=uyghur">
+  BOY
+</navigator>
+<navigator open-type="switchTab" url="/pages/name-swipe/index?type=uyghur" class="choose girl">
+  GIRL
+</navigator>
+<navigator open-type="switchTab" url="/pages/name-swipe/index?type=uyghur" class="choose both">
+  BOY & GIRL
+</navigator> -->
+
+
+<button bindtap="onChooseGender" data-value="0"  class="choose boy" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
+  BOY
+</button>
+<button bindtap="onChooseGender" data-value="1" class="choose girl" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
+  GIRL
+</button>
+<button bindtap="onChooseGender" data-value="2" class="choose both" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
+  BOY ∞ GIRL
+</button>

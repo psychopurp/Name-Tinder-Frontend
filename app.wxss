@@ -1,0 +1,41 @@
+/**app.wxss**/
+/* @import "./weui.wxss"; */
+
+page {
+  font-family: sans-serif;
+  font-weight: 600;
+  font-size: 36rpx;
+  color: #000000;
+  text-align: center;
+} 
+
+.tal {
+  text-align-last: left;
+}
+
+.boy {
+  background: #C3DFFF !important;
+}
+.girl {
+  background: #FFBEDB !important;
+}
+.both {
+  background-image: linear-gradient(90deg, #C3DFFF 34%, #FFBEDB 81%) !important;
+}
+
+view {
+  box-sizing: border-box;
+}
+
+.arrow {
+  border: solid #c7c7cc;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding:4px;
+  height:10px;
+}
+
+.arrow.right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}

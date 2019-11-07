@@ -1,0 +1,3 @@
+<view class="nav" style="margin-top: {{top}}rpx; height: {{height}}rpx;">
+  <image style="top: {{top}}rpx; width: {{heihgt}}rpx;height: {{heihgt}}rpx;" bindtap="goHome" src="../../assets/image/home.png" mode="aspectFill" class="home-icon"></image>
+</view>

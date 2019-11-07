@@ -1,0 +1,42 @@
+page {
+  background: rgba(239,239,244,0.23);
+}
+.group {
+  font-weight: normal;
+  text-align: left;
+}
+.group:first-of-type {
+  margin-top: 60rpx;
+}
+.group__title {
+  font-size: 26rpx;
+  color: #999999;
+  padding-left: 30rpx;
+  margin-bottom: 20rpx;
+}
+.group__row {
+  display: flex;
+  align-items: center;
+  padding: 0 30rpx;
+  font-size: 34rpx;
+  line-height: 88rpx;
+  border-top: 1rpx solid #e5e5e5;
+  background-color: #fff;
+}
+.group__row:last-of-type {
+  border-bottom: 1rpx solid #e5e5e5;
+}
+.group__content {
+  flex: 1;
+  color: #888888;
+  text-align: right;
+}
+.group .arrow {
+  margin-left: 30rpx;
+  float: right;
+}
+
+.button {
+  margin-top: 50rpx;
+  width: 670rpx;
+}

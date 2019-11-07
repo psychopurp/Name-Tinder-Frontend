@@ -1,0 +1,58 @@
+.title {
+  /* margin: 18px 0; */
+  margin-top: 44rpx;
+  margin-bottom: 48rpx;
+  line-height: 50rpx;
+}
+
+.title:first-child {
+  margin-top: 210rpx;
+}
+
+.input {
+  width: 670rpx;
+  line-height: 94rpx;
+  height:94rpx;
+  margin: 0 auto;
+  display: block;
+  background: #F8F8F8;
+  border: 2rpx solid rgba(5,5,5,0.10);
+  border-radius: 10rpx;
+}
+
+.phcolor {
+  color: rgba(155, 155, 155, .5);
+}
+
+.gender {
+  display: flex;
+  width: 670rpx;
+  height: 120rpx;
+  line-height: 120rpx;
+  margin: 0 auto;
+}
+
+.gender__option {
+  flex: 1;
+  font-size:30rpx;
+  background: #F8F8F8;
+  border: 2rpx solid rgba(5, 5, 5, 0.1);
+  border-radius: 10rpx;
+  color: rgba(155, 155, 155, .5);
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.gender__option.selected {
+  color: #000;
+  opacity: 1;
+}
+
+.gender__option + .gender__option {
+  margin-left: 20rpx;
+}
+
+.button {
+  margin-top: 200rpx;
+  width: 670rpx;
+}

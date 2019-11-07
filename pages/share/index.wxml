@@ -1,0 +1,18 @@
+<view class="share-page">
+  <view class="content">
+    <image class="content-bg" src="../../assets/image/share_page_bg.png" />
+    <view class="info">
+      <image class="avatar" src="{{userInfo.avatarUrl}}" />
+      <view>{{userInfo.nickName}}邀请你一起取名字</view>
+      <button bindtap="onClick" class="button" open-type="{{showGetUserInfoButton ? 'getUserInfo' : ''}}" bindgetuserinfo="bindGetUserInfo">
+          取{{buttonName}}名
+      </button>
+    </view>
+  </view>
+  <view class="qrcode">
+    <text>长按识别二维码</text>
+    <image class="qrcode-image" src="../../assets/image/qrcode.png" />
+    <text>关注微信</text>
+    <text>了解更多新鲜福利</text>
+  </view>
+</view>

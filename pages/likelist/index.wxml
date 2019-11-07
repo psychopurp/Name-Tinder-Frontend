@@ -1,0 +1,17 @@
+<view class="attender-list">
+  <image
+    src="{{item.avatar}}"
+    wx:for="{{attender}}"
+    wx:key="{{index}}"
+    class="attender-avatar">
+  </image>
+</view>
+<view wx:if="{{!likes}}"></view>
+<view class="no-like" wx:elif="{{likes.length < 1}}">
+  还没有配对到共同喜欢的名字
+</view>
+<view class="like-list" wx:else>
+  <view wx:for="{{likes}}" wx:key="{{index}}" class="like {{item.genderClassName}}">
+    {{item.displayName}}
+  </view>
+</view>

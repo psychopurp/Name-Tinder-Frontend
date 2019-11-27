@@ -1,0 +1,162 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  /* align-items: center; */
+  width: 100%;
+  background: #fff;
+}
+
+.avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-right: 40rpx;
+}
+
+.user-row {
+  height: 130rpx;
+  padding-left: 50rpx;
+  /* width: 100%; */
+  display: flex;
+  /* flex-grow: 2; */
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  /* padding: 52rpx 36rpx 59rpx; *//* background: #FF0000; *//* border-bottom: 1rpx solid #E5E5E5; */
+}
+
+.setting-icon {
+  width: 45rpx;
+  height: 45rpx;
+  display: block;
+  right: 50rpx;
+  top: 10rpx;
+  position: absolute;
+}
+
+.appbar {
+  height: 52rpx;
+  width: 100%;
+  display: flex; /*设置显示样式**/
+  align-items: center; /*子view垂直居中*//* vertical-align: center; *垂直居中 */
+  justify-content: start; /**内容居中*//* flex-direction:row; */
+  flex-direction: row;
+  /* background: #fffabf; */
+}
+
+.appbar-text-left {
+  display: flex;
+  /* margin-left: 60rpx; *//* padding-left: 60rpx; */
+  width: 150rpx;
+  align-items: center;
+  justify-content: center;
+  /* background: #FF0000; */
+}
+
+.appbar-text-right {
+  display: flex;
+  /* margin-right: 340rpx; *//* margin-left: 30rpx; */
+  align-items: center;
+  justify-content: center;
+  width: 150rpx;
+  /* background: #FF0000; */
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: start; */
+  align-items: center;
+}
+
+.line {
+  width: 70%;
+  height: 5rpx;
+  margin-top: 4rpx;
+  background: #000;
+  /* border-radius: 5rpx; */
+}
+
+.top-header {
+  height: 182rpx;
+  display: flex; /*设置显示样式**/
+  align-items: center; /*子view垂直居中*//* vertical-align: center; *垂直居中 */
+  justify-content: center; /**内容居中*//* flex-direction:row; */
+  background: #fff;
+}
+
+.top-header-text {
+  color: #9b9b9b;
+}
+
+.invite-box {
+  height: 232rpx;
+  width: 649rpx;
+  display: flex; /*设置显示样式**/
+  align-items: center; /*子view垂直居中*//* vertical-align: center; *垂直居中 */
+  justify-content: center; /**内容居中*//* flex-direction:row; */
+  border-radius: 40rpx;
+  margin: 30rpx 50rpx 0rpx 50rpx;
+  background: #fffabf;
+}
+
+.divLine {
+  background: #e0e3da;
+  /* width: 50%; */
+  height: 2rpx;
+  margin-top: 50rpx;
+  margin-right: 30rpx;
+  margin-left: 30rpx;
+}
+
+.attender-avatar + .attender-avatar {
+  margin-left: 20rpx;
+}
+
+.no-like {
+  font-weight: normal;
+  font-size: 36rpx;
+  color: #9b9b9b;
+  letter-spacing: 0.68rpx;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bolder;
+  white-space: nowrap;
+}
+
+.like-list {
+  padding-top: 52rpx;
+  padding-bottom: 50rpx;
+}
+
+.like {
+  margin: 0 auto;
+  width: 650rpx;
+  line-height: 100rpx;
+  border-radius: 17.35rpx;
+  text-align: left;
+  padding-left: 40rpx;
+}
+
+.like + .like {
+  margin-top: 20rpx;
+}
+
+button {
+  padding: 0;
+  -webkit-tap-highlight-color:transparent;
+  overflow: auto;
+}
+
+button::after {
+  border: none;
+}
+
+.list_content{
+  margin-top: 50rpx;
+}

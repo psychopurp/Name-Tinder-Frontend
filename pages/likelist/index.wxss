@@ -1,3 +1,23 @@
+.avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-right: 40rpx;
+}
+.top-avatar{
+  margin-top: 50rpx;
+}
+
+
+
+
+
+
+
+
+
 .attender-list {
   /* padding: 10rpx 0; */
   padding-top: 40rpx;

@@ -74,14 +74,16 @@ Page({
   },
 
   async getNames () {
+    console.log('获取名字')
     this.config = getConfig()
     const { type, gender, lastName } = this.config
     const res = await request({
-      url: `/api/names?type=${type}&gender=${gender}&lastName=${lastName}`,
+      url: `/api/names?type=${1}&gender=${1}&lastName=${0}`,
     })
-    console.log(res);
+    let cardList=res.data.data.map((item)=>new Name(item))
+    console.log(cardList)
 
-    const cards = this.initCards(res.data.data)
+    const cards = this.initCards(cardList)
     // await this.setDataP({
     //   cards: this.data.cards.slice().concat(cards),
     // })
@@ -98,6 +100,7 @@ Page({
     })
   },
   initCards (cards, force) {
+    console.log('init cards')
     const preIndex = this.list.length
     const { lastName } = this.config
     return cards.map((card, i) => {
@@ -298,3 +301,15 @@ Page({
     }
   },
 })
+
+
+class Name{
+  constructor(obj) {
+    this.nameId = obj.nameId;
+    this.name = obj.name;
+    this.explanation=obj.explanation
+    this.gender=obj.gender
+    this.source=obj.source
+    this.willMatch=obj.willMatch
+  }
+}

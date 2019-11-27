@@ -41,12 +41,12 @@ Page({
   },
   onShow () {
     const config = getConfig()
-    if (config.hasOwnProperty('type') && config.hasOwnProperty('gender')) {
-      wx.switchTab({
-        url: '/pages/name-swipe/index',
-      })
-      return
-    }
+    // if (config.hasOwnProperty('type') && config.hasOwnProperty('gender')) {
+    //   wx.switchTab({
+    //     url: '/pages/name-swipe/index',
+    //   })
+    //   return
+    // }
     this.setData({
       loading: false,
     })

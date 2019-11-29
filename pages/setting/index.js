@@ -2,8 +2,12 @@ import regeneratorRuntime from '../../utils/regenerator-runtime'
 import { getConfig, setConfig } from '../../utils/index'
 import request from '../../utils/request'
 
+const app = getApp()
+
 Page({
   data: {
+    userInfo:null,
+    userConfig:null,
     type: 0,
     typeRange: [
       '哈萨克语名',
@@ -17,6 +21,20 @@ Page({
     ],
     lastName: '',
     showButton: false,
+  },
+  onLoad:function(){
+    let userInfo=app.globalData.userInfo
+    let userConfig=app.globalData.userConfig
+    console.log(userInfo)
+    console.log(userConfig)
+    // if(userConfig){
+    //   wx.redirectTo({
+    //     url: '../../pages/welcome/index',
+    //   })
+    // }
+    this.setData({
+      userInfo:userInfo,
+      userConfig:userConfig})
   },
 
   onInput (e) {

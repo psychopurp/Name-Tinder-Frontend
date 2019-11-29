@@ -19,13 +19,17 @@
 
 <view class="main">
   <view class="top-avatar">
-    <image class='avatar' src="{{myAvatar}}"></image>
+<open-data class="avatar" type="userAvatarUrl" style="margin-right:40rpx;"></open-data>
     <image class='avatar' src="{{friendAvatar}}"></image>
+  </view>
+  <view class="common_like">
+  <text>共同喜欢</text>
+   <image src="../../assets/image/gender.png" class="setting-icon"></image>
   </view>
 
   <view class="list_content" wx:if="{{loaded==true}}">
     <block wx:for="{{nameList}}" wx:key="{{index}}">
-      <view class="like {{item.genderClassName}}">
+      <view class="like {{item.gender==1?'boy':'girl'}}">
         {{item.name}}
       </view>
 

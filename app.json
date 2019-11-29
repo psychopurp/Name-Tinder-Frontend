@@ -1,15 +1,21 @@
 {
   "pages": [
-    "pages/message/index",
-    "pages/welcome/index",
-    "pages/name-swipe/index",
-    "pages/han-name-intro/index",
-    "pages/match/index",
-    "pages/uyghur-name-intro/index",
-    "pages/likelist/index",
+        "pages/name-swipe/index",
+        "pages/han-name-intro/index",
+        "pages/message/index",
+        "pages/likelist/index",
+
+      "pages/mine-like/index",
     "pages/setting/index",
-    "pages/share/index",
-    "pages/common_like/index"
+    
+    "pages/welcome/index",
+    "pages/uyghur-name-intro/index",
+
+
+    "pages/match/index",
+
+    "pages/share/index"
+  
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -28,7 +34,7 @@
         "selectedIconPath": "./assets/image/tab_match_selected.png"
       },
       {
-        "pagePath": "pages/match/index",
+        "pagePath": "pages/message/index",
         "text": "消息",
         "iconPath": "./assets/image/tab_like.png",
         "selectedIconPath": "./assets/image/tab_like_selected.png"

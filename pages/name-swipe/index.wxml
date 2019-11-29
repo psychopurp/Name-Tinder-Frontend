@@ -1,51 +1,86 @@
 <view class="page">
-  <!-- <block wx:if="{{showShare}}">
-    <view class="no-match" >
-      <view class="text">
-        点赞次数已用完
+
+  <block>
+    <view class="top" wx:if="{{detail}}">
+      <view class="top-card" style="{{componentStyle}}">
+        {{currentCard.lastName+ currentCard.name}}
       </view>
-      <view class="text">
-        邀请更多人
+      <view wx:if="{{nameType==0}}">
+        <view class="column">
+          <text>音译</text>
+          <text>{{currentCard.explanation}}</text>
+        </view>
       </view>
-      <view class="text">
-        获取更多点赞次数
-      </view>
-      <button class="share" open-type="share">
-        分享
-      </button>
+
+      <view wx:if="{{nameType==1}}"> 
+      <view class="column">
+          <text>释义</text>
+          <text>字意</text>
+          <text class='subtext'>{{currentCard.explanation}}</text>
+          <text>取自</text>
+          <text class='subtext'>{{currentCard.source}}</text>
+        </view></view>
+
     </view>
-  </block> -->
-  <!-- <block wx:else> -->
-    <block>
+  </block>
+
+  <view wx:if="{{!detail}}" class="cards" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd">
+    <view wx:for="{{cards}}" wx:key="{{index}}" class="card-list {{item.direction}} {{item.className ?  item.className : ''}}" style="{{item.style}} {{componentStyle}}">
+      <view class="card-item">
+        {{ item.lastName+item.name }}
+      </view>
+      <view class="detail" bindtap="onDetail">
+        <image src="../../assets/image/detail.png" class="setting-icon"></image>
+      </view>
+
+    </view>
+  </view>
+
+  <view wx:if="{{!noCard}}" class="btns">
+    <view bindtap="onSwipe" data-isLike='false' class="btn btn__dislike">
+      <image src="../../assets/image/dislike.png"></image>
+    </view>
+    <view bindtap="onSwipe" data-isLike='true' class="btn btn__like">
+      <image src="../../assets/image/like.png"></image>
+    </view>
+  </view>
+  <view wx:if="{{noCard}}" class="no-card">
+    <text>暂无更多姓名供选择</text>
+    <view class="button" bindtap="onReview">再看一遍</view>
+  </view>
+
+</view>
+
+
+
+  <!-- <block wx:if="{{!detail}}">
       <view
           bindtouchstart="onTouchStart"
           bindtouchmove="onTouchMove"
           bindtouchend="onTouchEnd"
-          style="{{ componentStyle }}"
+          style="{{  }}"
           class="swipe-card swipe-card-c"
       >
         <view
-          style="{{ item.style }}"
+          style="{{ item.style }} {{componentStyle}}"
           wx:for="{{cards}}"
           wx:key="{{item.index}}"
-          class="block {{item.direction}} {{item.className ?  item.className : ''}}"
+          class="block  {{item.direction}} {{item.className ?  item.className : ''}}"
         >
-          {{ item.text }}
+          {{ item.lastName+item.name }}
           <!-- <text wx:if="{{item.userInfo}}" class="also-like-text">❤️"{{item.userInfo.nickName}}"也喜欢这个名字</text> -->
+  <!-- <view class="detail" bindtap="onDetail"> <image src="../../assets/image/detail.png" class="setting-icon"></image></view>
         </view>
-      </view>
-      <view wx:if="{{!noCard}}" class="btns">
+      </view> -->
+  <!-- <view wx:if="{{!noCard}}" class="btns">
         <view bindtap="swipeLeft" class="btn btn__dislike">
           <image src="../../assets/image/dislike.png"></image>
         </view>
         <view bindtap="swipeRight" class="btn btn__like">
           <image src="../../assets/image/like.png"></image>
         </view>
-      </view>
-    </block>
-    <view wx:if="{{noCard}}" class="no-card">
-      <text>暂无更多姓名供选择</text>
-      <view class="button" bindtap="onReview">再看一遍</view>
-    </view>
+      </view> -->
   <!-- </block> -->
-</view>
+
+
+  <!-- </block> -->

@@ -5,9 +5,9 @@
   line-height: 50rpx;
 }
 
-.title:first-child {
-  margin-top: 210rpx;
-}
+/* .title:first-child {
+  /* margin-top: 210rpx; 
+} */
 
 .input {
   width: 670rpx;
@@ -53,6 +53,6 @@
 }
 
 .button {
-  margin-top: 200rpx;
+  margin-top: 120rpx;
   width: 670rpx;
 }

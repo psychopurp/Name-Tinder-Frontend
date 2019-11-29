@@ -25,7 +25,7 @@ Page({
           ...config,
           type,
         })
-        wx.navigateTo({
+        wx.reLaunch({
           url: URL_MAP[type],
         })
       },

@@ -1,4 +1,53 @@
-<view class="group">
+<view class="page">
+
+  <view class="top-user-info">
+        <open-data type="userAvatarUrl" class="avatar"></open-data>
+        <open-data type="userNickName" class="name"></open-data>
+  </view>
+
+  <view class="group__title">
+    喜欢
+  </view>
+
+  <navigator open-type="redirectTo" url="/pages/mine-like/index" class="group__row">
+    <view class="group__label">
+      我喜欢的
+    </view>
+    <view class="group__content"></view>
+    <view class="arrow right"></view>
+  </navigator>
+
+    <view class="group__title">
+    探索
+  </view>
+
+  <navigator open-type="redirectTo" url="/pages/welcome/index" class="group__row">
+    <view class="group__label">
+      名字
+    </view>
+    <view class="group__content"></view>
+    <view class="arrow right"></view>
+  </navigator>
+  
+
+
+
+  <!-- <button wx:if="{{true}}" bindtap="onSave" type="primary" class="button">
+    保存
+  </button> -->
+
+</view>
+
+
+
+
+
+
+
+
+
+
+<!-- <view class="group">
   <view class="group__title">
     探索
   </view>
@@ -48,4 +97,4 @@
     保存
   </button>
 
-</view>
+</view> -->

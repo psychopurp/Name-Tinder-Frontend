@@ -2,13 +2,34 @@ import regeneratorRuntime from '../../utils/regenerator-runtime'
 import { setConfig, getConfig } from '../../utils/index'
 import request from '../../utils/request'
 
+const app = getApp()
 Page({
   data: {
     gender: '',
     showOpenSettingButton: false,
     showGetUserInfoButton: false,
   },
-  onChooseGender (e) {
+  setUserConfig:function(e){
+    let gender= e.target.dataset.value
+    let userConfig = {
+      nameType: 0,
+      gender: (this.data.gender == '0') ? 1 : 2,
+      lastName: null,
+      isDoubleName: null
+    }
+    app.setConfig(userConfig)
+    console.log(app.globalData)
+    wx.reLaunch({
+      url: '/pages/name-swipe/index',
+    })
+
+  },
+  onChooseGender(e) {
+    this.setData({
+      gender: e.target.dataset.value,
+    })
+  },
+  onChooseGenders (e) {
     this.setData({
       gender: e.target.dataset.value,
     })

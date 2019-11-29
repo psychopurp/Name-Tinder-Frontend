@@ -1,22 +1,25 @@
-<block wx:if="{{showShare}}">
-  share
-</block>
-
-<block wx:else>
-  <view class="title">
-    请输入姓氏
-  </view>
-  <input placeholder-class="phcolor" bindinput="onInput" value="{{name}}" class="input" type="text" placeholder="最多输入两个汉字" maxlength="2" />
-  <view class="title">
-    请选择性别
-  </view>
-  <view class="gender">
-    <view bindtap="onChooseGender" data-value="0" class="gender__option {{gender === '0' ? 'selected boy' : ''}}">BOY</view>
-    <view bindtap="onChooseGender" data-value="1" class="gender__option {{gender === '1' ? 'selected girl' : ''}}">GIRL</view>
-    <view bindtap="onChooseGender" data-value="2" class="gender__option {{gender === '2' ? 'selected both' : ''}}">BOY&GIRL</view>
-  </view>
-  <button bindtap="next" class="button" disabled="{{!name || !gender}}" type="primary" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
+<view class="title">
+  请输入姓氏
+</view>
+<input placeholder-class="phcolor" bindinput="onInput" value="{{name}}" class="input" type="text" placeholder="最多输入两个汉字" maxlength="2" />
+<view class="title">
+  请选择性别
+</view>
+<view class="gender">
+  <view bindtap="onChooseGender" data-value="0" class="gender__option {{gender === '0' ? 'selected boy' : ''}}">男</view>
+  <view bindtap="onChooseGender" data-value="1" class="gender__option {{gender === '1' ? 'selected girl' : ''}}">女</view>
+  <!-- <view bindtap="onChooseGender" data-value="2" class="gender__option {{gender === '2' ? 'selected both' : ''}}">BOY&GIRL</view> -->
+</view>
+<view class="title">
+  请选择字数
+</view>
+<view class="gender">
+  <view bindtap="onChooseNameCount" data-value="0" class="gender__option {{nameCount === '0' ? 'selected boy' : ''}}">单名</view>
+  <view bindtap="onChooseNameCount" data-value="1" class="gender__option {{nameCount === '1' ? 'selected girl' : ''}}">双名</view>
+</view>
+<button bindtap="next" class="button" disabled="{{!name || !gender}}" type="primary" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
     下一步
   </button>
-</block>
-
+<!-- <button bindtap="setUserConfig" class="button" disabled="{{!name || !gender}}" type="primary"> -->
+  <!-- 下一步
+</button> -->

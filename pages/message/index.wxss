@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-  /* align-items: center; */
+   align-items: center; 
   width: 100%;
   background: #fff;
+  /* width: 100%;
+  margin: 0 auto; */
 }
 
 .avatar {
@@ -33,6 +35,15 @@
   height: 45rpx;
   display: block;
   right: 50rpx;
+  top: 10rpx;
+  position: absolute;
+}
+
+.add-icon {
+  width: 45rpx;
+  height: 45rpx;
+  display: block;
+  right: 130rpx;
   top: 10rpx;
   position: absolute;
 }
@@ -112,44 +123,9 @@
   margin-left: 30rpx;
 }
 
-.attender-avatar + .attender-avatar {
-  margin-left: 20rpx;
-}
-
-.no-like {
-  font-weight: normal;
-  font-size: 36rpx;
-  color: #9b9b9b;
-  letter-spacing: 0.68rpx;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: bolder;
-  white-space: nowrap;
-}
-
-.like-list {
-  padding-top: 52rpx;
-  padding-bottom: 50rpx;
-}
-
-.like {
-  margin: 0 auto;
-  width: 650rpx;
-  line-height: 100rpx;
-  border-radius: 17.35rpx;
-  text-align: left;
-  padding-left: 40rpx;
-}
-
-.like + .like {
-  margin-top: 20rpx;
-}
-
 button {
   padding: 0;
-  -webkit-tap-highlight-color:transparent;
+  -webkit-tap-highlight-color: transparent;
   overflow: auto;
 }
 
@@ -157,6 +133,69 @@ button::after {
   border: none;
 }
 
-.list_content{
+.list_content {
   margin-top: 50rpx;
+  /* background: #e64340; */
+  width: 100%;
+  padding-bottom: 30rpx;
+border-bottom: 1rpx solid #E5E5E5;
+  /* margin: 0 auto;  */
+}
+
+.list {
+  position: relative;
+  height: 180rpx;
+  /* margin: 20rpx; */
+  border-radius: 10rpx;
+  line-height: 180rpx;
+  overflow: hidden;
+  /* background: #9b9b9b; */
+  background: #e64340
+}
+
+/*删除外层包裹视图*/
+.list_del {
+  position: absolute;
+  top: 0;
+}
+
+.list_del.txt {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  z-index: 5;
+  /* padding: 0 10rpx; */
+  transition: left 0.2s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.list_del.del {
+  background-color: #e64340;
+  width: 190rpx;
+  text-align: center;
+  z-index: 4;
+  right: 0;
+  color: #fff;
+}
+
+.list_avatar {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
+  vertical-align: middle; 
+  margin-right: 550rpx;
+ /* margin-top: -8rpx; */
+
+
+}
+
+.list_name {
+  position: absolute;
+  left:168rpx;
+  bottom:0rpx;
+  vertical-align: middle;
+
 }

@@ -1,0 +1,25 @@
+
+<view class="page">
+
+  <view class="appbar">
+        <view class="appbar-text-left" style="color:{{currentIndex==0?'':'#D4D4D4'}}" bindtap="changeToKz">哈萨克语名</view>
+        <view class="appbar-text-right" style="color:{{currentIndex==1?'':'#D4D4D4'}}" bindtap="changeToZh">中文名</view>
+   <image src="../../assets/image/gender.png" class="setting-icon"></image>
+  </view>
+
+<view class="body">
+  <view class="title">M</view>
+  <view wx:for="{{boysList}}" wx:key="{{index}}" class="list">
+  <view wx:if="{{item.type==currentIndex}}">
+  <view class="name {{'boy'}}">{{item.lastName+item.name}}</view>
+  </view> </view>
+
+<view class="title" style="margin-top:50rpx;">G</view>
+ <view wx:for="{{girlsList}}" wx:key="{{index}}" class="list">
+  <view wx:if="{{item.type==currentIndex}}">
+  <view class="name {{'girl'}}">{{item.lastName+item.name}}</view>
+  </view> </view>
+
+  </view>
+
+</view>

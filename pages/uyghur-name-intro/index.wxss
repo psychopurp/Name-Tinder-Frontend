@@ -7,8 +7,8 @@ page {
   width: 100%;
 }
 .title {
-  margin-bottom: 20rpx;
-  margin-top: 206rpx;
+  margin-bottom: 120rpx;
+  margin-top: 156rpx;
 }
 .choose {
   margin: 0 auto;
@@ -26,4 +26,38 @@ button {
 
 button::after {
   border: none;
+}
+
+
+.gender {
+  display: flex;
+  width: 670rpx;
+  height: 120rpx;
+  line-height: 120rpx;
+  margin: 0 auto;
+}
+
+.gender__option {
+  flex: 1;
+  font-size:30rpx;
+  background: #F8F8F8;
+  border: 2rpx solid rgba(5, 5, 5, 0.1);
+  border-radius: 10rpx;
+  color: rgba(155, 155, 155, .5);
+  overflow: hidden;
+  box-sizing: content-box;
+}
+
+.gender__option.selected {
+  color: #000;
+  opacity: 1;
+}
+
+.gender__option + .gender__option {
+  margin-left: 20rpx;
+}
+
+.button {
+  margin-top: 320rpx;
+  width: 670rpx;
 }

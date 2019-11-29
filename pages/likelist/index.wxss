@@ -4,13 +4,39 @@
   border-radius: 50%;
   box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  margin-right: 40rpx;
+  /* margin-right: 40rpx; */
 }
 .top-avatar{
   margin-top: 50rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
 }
 
+.list_content{
+  margin-top: 30rpx;
+}
 
+.common_like{
+  height: 60rpx;
+  /* background: #FF00FF; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  margin-left: 50rpx;
+  margin-right: 50rpx;
+}
+
+.setting-icon {
+  width: 45rpx;
+  height: 45rpx;
+  display: block;
+  right: 50rpx;
+  top: 10rpx;
+  /* position: absolute; */
+}
 
 
 

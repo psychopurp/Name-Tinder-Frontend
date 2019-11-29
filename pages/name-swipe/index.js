@@ -7,7 +7,10 @@
 import regeneratorRuntime from '../../utils/regenerator-runtime'
 import getTouchPosition from '../../utils/getTouchPosition'
 import request from '../../utils/request'
-import { getConfig } from '../../utils/index'
+import sleep from '../../utils/sleep'
+import {
+  getConfig
+} from '../../utils/index'
 
 const MOVE_DISTANCE = 500
 
@@ -20,12 +23,16 @@ const TITLES = {
 }
 Page({
   data: {
-    cards: [
-    ],
+    cards: [],
     componentStyle: '',
     noCard: false,
     showShare: false,
+    currentCard:null,
+    nameType:0,
+    detail:false
   },
+  userConfig:null,
+  nameCount:0,
   list: [],
   currentCardIndex: 0,
   changeX: 0,
@@ -33,12 +40,55 @@ Page({
   touchLock: false,
   moveLastTime: 0,
   shared: false,
-  async onShow () {
+  update:false,
+
+
+  onDetail:function(){
+    console.log('show detail..')
+    this.setData({
+      detail:true
+    })
+  },
+
+  onSwipe:async function(e){
+    let isLike=e.currentTarget.dataset.islike
+    let direction=isLike==='true'?"right":'left'
+    console.log('swipe...')
+    if(this.data.detail){
+      this.setData({
+        detail:false
+      })
+     await sleep(300)
+    }
+    console.log('swiped')
+
+    await this.updateCardStyle({
+      immediate: true,
+      direction: direction,
+      nextIndex: true,
+    })
+    // this.setData(
+    //   {
+    //     detail: false
+    //   }
+    // )
+  },
+  pageRedirect:function(){
+    let hasConfig=app.hasConfig
+    if (!hasConfig) {
+      wx.redirectTo({
+        url: '../../pages/welcome/index',
+      })
+      return
+    }
+  },
+
+  async onShow() {
     // this.times = +(wx.getStorageSync('user_like_times') || 0)
-    const config = getConfig()
-    const { type } = config
+    if(this.userConfig==null)
+    return
     wx.setNavigationBarTitle({
-      title: TITLES[type] || '',
+      title: TITLES[this.userConfig.nameType] || '',
     })
     // console.log(this.data.showShare, this.shared, this.times)
     // if (this.data.showShare === true && this.shared && this.times !== 5) {
@@ -46,65 +96,113 @@ Page({
     //     showShare: false,
     //   })
     // }
-    if (JSON.stringify(this.config) !== JSON.stringify(config)) {
-      this.config = config
-      this.init()
-    }
-  },
-  async onLoad () {
-    this.config = getConfig()
-    this.init()
-    // wx.setStorageSync('user_like_times', this.times)
-    const shared = +wx.getStorageSync('user_like_times') === 1
-    if (!shared) {
-      wx.showTabBarRedDot({
-        index: 1,
-      })
-    }
+    // if (JSON.stringify(this.config) !== JSON.stringify(config)) {
+    //   this.config = config
+    //   this.init()
+    // }
   },
 
-  async init () {
+  async onLoad() {
+    this.pageRedirect()
+    let {
+      userConfig,
+      userInfo
+    } = app.globalData
+    this.userConfig=userConfig
+    if(this.userConfig==null)
+    return
+ 
+    // userConfig = {
+    //   nameType: 0,
+    //   gender: 1,
+    //   lastName: ''
+    // }
+    console.log(app.globalData)
+    console.log(userConfig)
+
+    let color = (userConfig.gender == 1) ? colors[0] : colors[1]
+    this.setData({
+      userConfig: userConfig,
+      componentStyle: `background-color: ${color};}`,
+      nameType:userConfig.nameType
+    })
+    // console.log(userInfo)
+    // this.config = getConfig()
+    this.init()
+    // wx.setStorageSync('user_like_times', this.times)
+    // const shared = +wx.getStorageSync('user_like_times') === 1
+    // if (!shared) {
+    //   wx.showTabBarRedDot({
+    //     index: 1,
+    //   })
+    // }
+  },
+
+  async init() {
     console.log('init')
+ 
     this.currentCardIndex = 0
+    this.nameCount=0
     this.changeX = 0
     this.touchStartX = 0
     this.list = []
-    await app.globalData.userInfoPromise
+
+    console.log(this.currentCardIndex)
+    // await app.globalData.userInfoPromise
+    if (this.update){
+      this.currentCardIndex=-1
+    }
     this.getNames()
   },
 
-  async getNames () {
+  async getNames() {
     console.log('获取名字')
-    this.config = getConfig()
-    const { type, gender, lastName } = this.config
+    // this.config = getConfig()
+    // const { type, gender, lastName } = this.config
+    let userConfig = this.data.userConfig
+
     const res = await request({
-      url: `/api/names?type=${1}&gender=${1}&lastName=${0}`,
+      url: `/api/names?type=${userConfig.nameType}&gender=${userConfig.gender}&lastName=${userConfig.lastName}&isDoubleName=${userConfig.isDoubleName||false}`,
     })
-    let cardList=res.data.data.map((item)=>new Name(item))
+    let cardList = res.data.data.map((item,index) => {
+      let name = new Name(item)
+      name.lastName = (userConfig.lastName == null) ? "" : userConfig.lastName
+      let color=(name.gender==1)?colors[0]:colors[1]
+      let idx=this.list.length+index
+      name.style = this.getInitStyle(color, idx)
+      console.log(name.style)
+      name.className=(index === 0) ? 'box-shadow' : ''
+      return name
+    })
     console.log(cardList)
 
-    const cards = this.initCards(cardList)
-    // await this.setDataP({
-    //   cards: this.data.cards.slice().concat(cards),
-    // })
-    this.list = this.list.concat(cards)
-    await this.updateCards()
-    // console.log(this.list, this.data.cards)
+    
+    this.list = this.list.concat(cardList)
+    console.log(this.list)
+    console.log(this.currentCardIndex)
+    console.log('currenindex')
+
+    this.updateCards()
   },
-  updateCards () {
-    // const start = this.currentCardIndex > 20 ? this.currentCardIndex - 20 : 0
-    // const end = this.currentCardIndex + 20 > this.list.length ? this.list.length : this.currentCardIndex + 20
+
+  updateCards() {
+    const isClear=this.nameCount>50
+    if(isClear){
+      this.update=true
+      this.init()
+    }
+    // console.log('slice........')
     this.setData({
-      // cards: this.list.slice(start, end)
       cards: this.list,
+      currentCard:this.list[this.currentCardIndex]
     })
   },
-  initCards (cards, force) {
+
+  initCards(cards, force) {
     console.log('init cards')
     const preIndex = this.list.length
-    const { lastName } = this.config
     return cards.map((card, i) => {
-      const color = colors[card.gender]
+      const color = colors[card.gender - 1]
       const index = force ? i : preIndex + i
       return {
         // ...card,
@@ -120,7 +218,7 @@ Page({
     })
   },
 
-  onReview () {
+  onReview() {
     this.currentCardIndex = 0
     this.setData({
       noCard: false,
@@ -128,63 +226,77 @@ Page({
     })
   },
 
-  setDataP (data) {
+  setDataP(data) {
     return new Promise(resolve => {
       this.setData(data, resolve)
     })
   },
 
-  getInitStyle (color, index) {
+  getInitStyle(color, index) {
     // const deg = parseInt(Math.random() * 5) - 2.5;
+    let count=this.nameCount;
+    this.nameCount++
     if (color) {
-      return `background-color: ${color}; transform: rotate(0deg) scale(1); opacity: 1; z-index: ${-index};}`
+      return `background-color:${color}; transform: rotate(0deg) scale(1); opacity: 1; z-index: ${-count};}`
     }
     return 'display: none;'
   },
 
-  async updateCardStyle (options = {}) {
-    const times = wx.getStorageSync('user_like_times') || 0
-    if (times === 5) {
-      this.setData({
-        showShare: true,
-      })
-      return
-    }
-    let { immediate = false, direction, nextIndex = false } = options
+  async updateCardStyle(options = {}) {
+    // const times = wx.getStorageSync('user_like_times') || 0
+    // if (times === 5) {
+    //   this.setData({
+    //     showShare: true,
+    //   })
+    //   return
+    // }
+    let {
+      immediate = false, direction, nextIndex = false
+    } = options
     // const { cards } = this.data;
+    console.log('index')
+    console.log(this.currentCardIndex)
     let cards = this.list
     const index = this.currentCardIndex
-    this.currentCardIndex
-    const card = cards[index]
-    direction = direction || (this.changeX > 0 ? 'right' : 'left')
+    // console.log(this.list)
+
+    const card=this.list[index]
+    direction = direction || (this.touchChange.dx > 0 ? 'right' : 'left')
+    // console.log(direction)
 
     if (!card) {
       return
     }
 
     // card 水平方向平移距离
-    const x = immediate
-      ? Number(`${direction === 'right' ? '' : '-'}${MOVE_DISTANCE}`)
-      : this.changeX
-
+    const x = immediate ?
+      Number(`${direction === 'right' ? '' : '-'}${MOVE_DISTANCE}`) :
+      this.touchChange.dx
+    // console.log('水平移动')
+    // console.log(x)
 
     // card 旋转角度
     const deg = (100 / MOVE_DISTANCE) * x
-    const time = immediate
-      ? ((MOVE_DISTANCE - this.changeX) / MOVE_DISTANCE) * 800
-      : 0
+    const time = immediate ?
+      ((MOVE_DISTANCE - this.changeX) / MOVE_DISTANCE) * 800 :
+      0
+    // console.log('旋转角度')
+    // console.log(deg)
     const transition = `transition: ${immediate ? time : 0}ms all ease-in-out;`
-    cards[index].style = `background-color: ${card.color}; transform-origin: bottom 70%; transform: translate3d(${x}px, 0, 0) rotate(${deg}deg); opacity: 1; z-index: ${-index};${transition}`
-    cards[index].direction = direction
+    card.style = ` transform-origin: bottom 70%; transform: translate3d(${x}px, 0, 0) rotate(${deg}deg); opacity: 1; z-index: ${-index};${transition}`
 
+    card.direction = direction
+    console.log(card)
+    console.log('style....')
+    // console.log(card.style)
     // handle box shadow
-    cards[index].className = 'box-shadow'
-    if (cards[index + 1]) {
-      cards[index + 1].className = 'box-shadow'
-    }
+    card.className = 'box-shadow'
+    // if (cards[index + 1]) {
+    //   cards[index + 1].className = 'box-shadow'
+    // }
 
-    this.list = cards
-    await this.updateCards()
+    // this.list = cards
+    this.updateCards()
 
     if (!nextIndex) {
       return
@@ -202,8 +314,11 @@ Page({
     // this.currentCardIndex += 1
     this.updateCurrentCardIndex(direction)
   },
-  async resetCardStyle () {
-    const { cards } = this.data
+
+  async resetCardStyle() {
+    const {
+      cards
+    } = this.data
     const index = this.currentCardIndex
     const card = cards[index]
     if (!card) {
@@ -211,34 +326,60 @@ Page({
     }
     cards[index].style = `background-color: ${card.color}; transform-origin: bottom 70%;transform: translate3d(0px, 0, 0) rotate(deg); opacity: 1; z-index: ${-index};transition: 300ms all ease-in-out;`
     cards[index].direction = ''
-    await this.setDataP({
-      cards,
+     this.setData({
+      cards:cards
     })
     // return cards
   },
 
-  onTouchStart (e) {
+  onTouchStart(e) {
     if (this.touchLock) {
       return
     }
     this.touchLock = true
 
-    const touchPosition = getTouchPosition(e)
-    this.touchStartX = touchPosition.x
-  },
-  onTouchMove (e) {
-    const touchPosition = getTouchPosition(e)
-    this.changeX = touchPosition.x - this.touchStartX
-    this.moveLastTime = e.timeStamp
+    let touchPosition={
+      x: e.changedTouches[0].clientX - e.currentTarget.offsetLeft,
+      y: e.changedTouches[0].clientY - e.currentTarget.offsetTop
+    }
+    console.log(touchPosition)
+    this.touchStart=touchPosition
 
+    this.touchStartX = touchPosition.x
+    this.touchStartY=touchPosition.y
+    // this.updateCardStyle()
+  },
+
+  onTouchMove(e) {
+    const touchPosition = getTouchPosition(e)
+    this.touchChange={
+      dx: touchPosition.x-this.touchStart.x,
+      dy: touchPosition.y - this.touchStart.y,
+    }
+    console.log(this.touchChange)
+    this.changeX = touchPosition.x - this.touchStartX
+    this.changeY=touchPosition.y-this.touchStartY
+    this.moveLastTime = e.timeStamp
+    console.log('touchmove......')
     this.updateCardStyle()
   },
-  async onTouchEnd (e) {
+  async onTouchEnd(e) {
     const duration = e.timeStamp - this.moveLastTime
-    this.moveLastTime = e.timeStamp
+    console.log('duration...')
+    console.log(duration)
+    console.log('changeX')
+    console.log(this.changeX)
+    if(this.touchChange==null){
+      const touchPosition = getTouchPosition(e)
+      this.touchChange = {
+        dx: touchPosition.x - this.touchStart.x,
+        dy: touchPosition.y - this.touchStart.y,
+      }
+    }
+    // this.moveLastTime = e.timeStamp
 
     // 少于一定时间或大于一定距离时，算做成功
-    if (duration < 50 || this.changeX > 100) {
+    if (duration < 50 || this.touchChange.dx > 100) {
       await this.updateCardStyle({
         immediate: true,
         nextIndex: true,
@@ -248,45 +389,63 @@ Page({
     }
     this.touchLock = false
   },
-  async swipeLeft () {
+  async swipeLeft() {
     await this.updateCardStyle({
       immediate: true,
       direction: 'left',
       nextIndex: true,
     })
+ 
   },
-  async swipeRight () {
+  async swipeRight() {
     await this.updateCardStyle({
       immediate: true,
       direction: 'right',
       nextIndex: true,
     })
+    this.setData(
+      {
+        detail: false
+      }
+    )
   },
-  updateCurrentCardIndex (direction) {
-    if (direction === 'right') {
-      this.likeNameHandler()
-    }
-    if (this.currentCardIndex === this.list.length - 10) {
-      this.getNames()
+
+  updateCurrentCardIndex:async function(direction) {
+      this.likeNameHandler(direction)
+    
+    if (this.currentCardIndex === this.list.length - 2) {
+     await this.getNames()
     }
     // this.times += 1
     // if (this.times <= 6) {
     //   wx.setStorageSync('user_like_times', this.times)
     // }
-    this.currentCardIndex += 1
+    // console.log(this.list.splice(0, 1))
+    console.log(this.list)
+    // this.list.concat([])
+    this.currentCardIndex ++
+    this.updateCards()
+   
   },
-  likeNameHandler () {
-    const card = this.list[this.currentCardIndex]
-    // console.log(card)
-    const { type, gender } = this.config
 
-    const nameQuery = +type === 1 ? `&name=${encodeURIComponent(card.text)}` : ''
-    request({
-      url: `/api/name/like?id=${card.id}&type=${card.type}&gender=${gender}${nameQuery}`,
-      method: 'PUT',
+  likeNameHandler:async function(direction) {
+    const card = this.list[this.currentCardIndex]
+    console.log('handle.......')
+    // console.log(card)
+
+    let isLike=(direction==='right')?true:false
+    // console.log(isLike)
+    let lastName=this.userConfig.lastName||''
+    // console.log(this.userConfig)
+    // console.log(lastName)
+    let res=await request({
+      url: `/api/likeName`,
+      method: 'POST',
+      data:{nameId:card.nameId,isLike:isLike,lastName:lastName}
     })
+    console.log(res.data)
   },
-  onShareAppMessage () {
+  onShareAppMessage() {
     // const config = getConfig()
     // this.shared = true
     // this.times === 6
@@ -303,13 +462,13 @@ Page({
 })
 
 
-class Name{
+class Name {
   constructor(obj) {
     this.nameId = obj.nameId;
     this.name = obj.name;
-    this.explanation=obj.explanation
-    this.gender=obj.gender
-    this.source=obj.source
-    this.willMatch=obj.willMatch
+    this.explanation = obj.explanation
+    this.gender = obj.gender
+    this.source = obj.source
+    this.willMatch = obj.willMatch
   }
 }

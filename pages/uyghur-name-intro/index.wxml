@@ -11,13 +11,24 @@
   BOY & GIRL
 </navigator> -->
 
-
+<!-- 
 <button bindtap="onChooseGender" data-value="0"  class="choose boy" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
-  BOY
+  男
 </button>
 <button bindtap="onChooseGender" data-value="1" class="choose girl" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
-  GIRL
+  女
+</button> -->
+
+<!-- <button  bindtap="setUserConfig" data-value="0" class="choose girl" type="primary" >
+  男
 </button>
-<button bindtap="onChooseGender" data-value="2" class="choose both" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
-  BOY ∞ GIRL
+<button  bindtap="setUserConfig" data-value="1" class="choose girl" type="primary">
+  女
+</button> -->
+<view class="gender">
+  <view bindtap="onChooseGender" data-value="0" class="gender__option {{gender === '0' ? 'selected boy' : ''}}">男</view>
+  <view bindtap="onChooseGender" data-value="1" class="gender__option {{gender === '1' ? 'selected girl' : ''}}">女</view>
+</view>
+<button bindtap="setUserConfig" class="button" disabled="{{gender==''}}" type="primary">
+  下一步
 </button>

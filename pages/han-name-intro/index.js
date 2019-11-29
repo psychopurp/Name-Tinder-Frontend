@@ -2,15 +2,18 @@ import regeneratorRuntime from '../../utils/regenerator-runtime'
 
 import { setConfig, getConfig } from '../../utils/index'
 import request from '../../utils/request'
-
+const app=getApp()
 Page({
   data: {
     name: '',
     gender: '',
+    nameCount:'',
     showOpenSettingButton: false,
     showGetUserInfoButton: false,
   },
   onInput (e) {
+    this.name = e.detail.value
+
     this.setData({
       name: e.detail.value,
     })
@@ -20,6 +23,44 @@ Page({
       gender: e.target.dataset.value,
     })
   },
+  onChooseNameCount:function(e){
+    this.setData({
+      nameCount: e.target.dataset.value,
+    })
+  },
+  setUserConfig:function(){
+    let str = /[\u4e00-\u9fa5]/
+    console.log(this.name)
+    if (!str.test(this.name)) {
+      wx.showModal({
+        title: '提示',
+        content: '请输入正确的姓！',
+        success: res=> {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            this.setData({
+              name:''
+            })
+          }
+        }
+      })
+    } else {
+      let userConfig = {
+        nameType: 1,
+        gender: (this.data.gender == '0') ? 1 : 2,
+        lastName: this.data.name,
+        isDoubleName: (this.data.nameCount == '0') ? false : true
+      }
+      app.setConfig(userConfig)
+      console.log(app.globalData)
+      wx.reLaunch({
+        url: '../../pages/name-swipe/index',
+      })
+    } 
+
+    
+  },
+
   next () {
     const { showOpenSettingButton, showGetUserInfoButton } = this.data
     if (showOpenSettingButton || showGetUserInfoButton) {
@@ -27,15 +68,10 @@ Page({
     }
     wx.getUserInfo({
       success: (res) => {
-        // const userInfo = res.userInfo
-        // const nickName = userInfo.nickName
-        // const avatarUrl = userInfo.avatarUrl
-        // const gender = userInfo.gender // 性别 0：未知、1：男、2：女
-        // const province = userInfo.province
-        // const city = userInfo.city
-        // const country = userInfo.country
-        this.userInfo = res
-        this.goToNameSwipe()
+        this.userInfo = res.userInfo
+        app.setUserInfo(this.userInfo)
+        console.log(this.userInfo)
+        this.setUserConfig()
       },
       fail: (res) => {
         console.error(res)
@@ -48,13 +84,14 @@ Page({
     })
   },
   bindGetUserInfo (e) {
+    console.log('bindGetUserInfo')
     // 用户未同意授权
     if (!e.detail.userInfo) {
       this.setData({
         showGetUserInfoButton: true,
       })
     } else {
-      this.goToNameSwipe()
+      this.setUserConfig()
     }
   },
   async goToNameSwipe () {

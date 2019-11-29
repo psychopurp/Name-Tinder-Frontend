@@ -1,9 +1,23 @@
 import regeneratorRuntime from '../../utils/regenerator-runtime'
 import request from '../../utils/request'
 
+
+
+// 默认声明一个函数记录list显示的数据---删除状态
+var initdata = function (that) {
+  var list = that.data.userList
+  for (var i = 0; i < list.length; i++) {
+    list[i].shows = ""
+  }
+  that.setData({
+    userList: list
+  })}
+
+
 Page({
 
   data: {
+    delBtnWidth: 185, //删除按钮宽度单位（rpx）
     userList: [],
     hasFriend: false,
     currentIndex: 1,
@@ -28,47 +42,8 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
+  
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
 
   /**
    * 用户点击右上角分享
@@ -91,16 +66,89 @@ Page({
     })
   },
 
-  changeToFriend() {
+  changeToFriend:function() {
     this.setData({
       currentIndex: 1
     })
   },
-  changeToVote() {
+  changeToVote:function() {
     this.setData({
       currentIndex: 2
     })
   },
+
+
+  // 开始滑动事件
+  touchS: function (e) {
+    if (e.touches.length == 1) {
+      this.setData({
+        //设置触摸起始点水平方向位置 
+        startX: e.touches[0].clientX
+      });
+    }
+  },
+  touchM: function (e) {
+    var that = this;
+    // initdata(that)
+    if (e.touches.length == 1) {
+      //手指移动时水平方向位置 
+      var moveX = e.touches[0].clientX;
+      //手指起始点位置与移动期间的差值 
+      var disX = this.data.startX - moveX;
+      var delBtnWidth = this.data.delBtnWidth;
+      // var txtStyle = "";
+      if (disX == 0 || disX < 0) { //如果移动距离小于等于0，文本层位置不变 
+        // txtStyle = "left:0px";
+      } else if (disX > 0) { //移动距离大于0，文本层left值等于手指移动距离 
+        // txtStyle = "left:-" + disX + "px";
+        if (disX >= delBtnWidth) {
+          //控制手指移动距离最大值为删除按钮的宽度 
+          // txtStyle = "left:-" + delBtnWidth + "px";
+        }
+      }
+
+    }
+  },
+  // 滑动中事件
+  touchE: function (e) {
+    if (e.changedTouches.length == 1) {
+      //手指移动结束后水平位置 
+      var endX = e.changedTouches[0].clientX;
+      //触摸开始与结束，手指移动的距离 
+      var disX = this.data.startX - endX;
+      var delBtnWidth = this.data.delBtnWidth;
+      //如果距离小于删除按钮的1/2，不显示删除按钮 
+      var txtStyle = "";
+      txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "rpx" : "left:0px";
+      //获取手指触摸的是哪一项 
+      var index = e.currentTarget.dataset.index;
+      var list = this.data.userList;
+      list[index].shows = txtStyle;
+      console.log("1", list[index].shows);
+      //更新列表的状态 
+      this.setData({
+        userList: list
+      });
+    } else {
+      console.log("2");
+    }
+  },
+  //点击删除按钮事件 
+  delItem: function (e) {
+
+    // 打印出当前选中的index
+    console.log(e.currentTarget.dataset.index);
+    // 获取到列表数据
+    var list = this.data.userList;
+    // 删除
+    list.splice(e.currentTarget.dataset.index, 1);
+    console.log(list)
+    // 重新渲染
+    this.setData({
+      userList: list
+    })
+    initdata(this)
+  }
  
 })
 

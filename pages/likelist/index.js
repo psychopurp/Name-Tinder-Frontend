@@ -13,19 +13,21 @@ Page({
     likes: null,
   },
    onLoad (e) {
-    let myAvatar=app.globalData.userInfo.avatarUrl
-    // console.dir(app.globalData)
+     console.log(app.globalData)
+     let userConfig=app.globalData.userConfig
+    // let myAvatar=app.globalData.userInfo.avatarUrl
+    console.dir(app.globalData)
     let friendId=e.userId
     let friendAvatar=e.avatar
     // console.log(userAvatar)
     this.setData({
-      myAvatar:myAvatar,
+      // myAvatar:myAvatar,
       friendAvatar:friendAvatar
     })
     request({
       url: `/api/getCommonLikes`,
       method:'POST',
-      data:{userId:friendId,nameType:0}
+      data:{userId:friendId,nameType:userConfig.nameType}
     }).then((res)=>{
       let nameList = res.data.data.map((item) => new Name(item))
       console.log(nameList)

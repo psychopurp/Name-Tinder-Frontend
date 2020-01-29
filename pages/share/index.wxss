@@ -31,7 +31,13 @@ page {
 .avatar {
   width: 135rpx;
   height: 135rpx;
-  margin-bottom: 15rpx;
+  margin-bottom: 20rpx;
+  border-radius: 50%;
+  border-style:solid;
+  border-color:#fff;
+}
+.title{
+  margin-bottom: 74rpx;
 }
 
 .content-bg {

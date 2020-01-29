@@ -1,5 +1,16 @@
+
+<view class="row" wx:if="{{fromFriend}}">
+ <image class="avatar" src="{{friendInfo.avatarUrl}}" />
 <view class="title">
-  请输入姓氏
+  {{friendInfo.nickName}} \t\r  已选择姓氏
+</view>
+</view>
+
+
+<view wx:if="{{!fromFriend}}">
+<view class="title">
+  请选择姓氏
+</view>
 </view>
 <input placeholder-class="phcolor" bindinput="onInput" value="{{name}}" class="input" type="text" placeholder="最多输入两个汉字" maxlength="2" />
 <view class="title">
@@ -17,7 +28,7 @@
   <view bindtap="onChooseNameCount" data-value="0" class="gender__option {{nameCount === '0' ? 'selected boy' : ''}}">单名</view>
   <view bindtap="onChooseNameCount" data-value="1" class="gender__option {{nameCount === '1' ? 'selected girl' : ''}}">双名</view>
 </view>
-<button bindtap="next" class="button" disabled="{{!name || !gender}}" type="primary" open-type="{{showGetUserInfoButton ? 'getUserInfo' : (showOpenSettingButton? 'openSetting': '')}}" bindgetuserinfo="bindGetUserInfo">
+<button  class="button" disabled="{{!name || !gender}}" type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
     下一步
   </button>
 <!-- <button bindtap="setUserConfig" class="button" disabled="{{!name || !gender}}" type="primary"> -->

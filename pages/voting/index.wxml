@@ -1,0 +1,47 @@
+
+<view class="header">
+  <image class='avatar' src="{{userInfo.avatarUrl}}"></image>
+  <view class="column" style="padding-left:15rpx;">
+    <text style="margin-top:15rpx">帮我们家宝贝选个名字吧!</text>
+    <view class="row" style="margin-top:30rpx;" bindtap="onDetail">
+      <image src="../../assets/image/detail2.png" style="color:#C4C4C4;" class="setting-icon"></image>
+      <text style="color:#C4C4C4; font-size:15rpx; margin-left:10rpx;">每人仅可投一票</text>
+      <image src="../../assets/image/detail2.png" style="color:#C4C4C4; margin-left:15rpx;" class="setting-icon"></image>
+      <text style="color:#C4C4C4; font-size:15rpx;margin-left:10rpx;">投票截止: {{timeString}}</text>
+    </view>
+  </view>
+</view>
+
+
+<view class="body column" style="align-items:flex-start;">
+ <view  style="padding-left:56rpx; padding-top:65rpx; width:100%;overflow:hidden;">
+    <block wx:for="{{names}}" wx:key="index">
+      <view class="item" data-index="{{index}}" bindtap="onSelect">
+        <text style="color:#C4C4C4; ;margin-right:10rpx;">{{index+1}}</text>
+        <view class="card">
+          {{item.lastName+item.name}}
+        </view>
+        <view class="column" style="justify-content:center;align-items:center; margin-right:55rpx;">
+         <image wx:if="{{selected==index||(state=='3'&&item.index!=-1)}}" src="../../assets/image/like_after.png" class="like-icon"></image>
+         <image wx:if="{{(state=='2'||state=='1')&&selected!=index}}"  src="../../assets/image/like_before.png" class="like-icon"></image>
+         <image wx:if="{{(state=='3'&&item.index==-1)||state=='4'}}" src="../../assets/image/like_before2.png" class="like-icon"></image>
+          <text wx:if="{{(state=='3'&&item.voteNum!=0)||state=='4'}}"  style="color:#C4C4C4;font-size:20rpx ">{{item.voteNum}}</text>
+        </view>
+        </view>
+
+<view wx:if="{{state=='4'||(state=='3'&&item.index!=-1)}}"  class="name-avatar">
+<block wx:for="{{item.members}}" wx:key="*this" wx:for-item="memItem">
+        <image  class='avatars' src="{{memItem.userInfo.avatarUrl}}"></image>
+  </block>
+</view>
+        
+
+    </block>
+  </view>
+</view>
+
+<view>
+  <button wx:if="{{state=='1'}}" style="position:absolute; bottom:50rpx;left:0;right:0; margin-top:40rpx; background:#4F88F2; color:#FFFFFF;width:670rpx; font-weight:normal;font-size:12pt; " open-type="share"  type="primary" size="default"  > 邀请好友投票 </button>
+  <button wx:if="{{state=='2'}}" style="position:absolute; bottom:50rpx;left:0;right:0; margin-top:40rpx; background:#4F88F2; color:#FFFFFF;width:670rpx; font-weight:normal;font-size:12pt; " bindtap="onVote" type="primary" size="default"  > 投票 </button>
+  <text wx:if="{{state=='4'||state=='3'}}" style="color:#C4C4C4;position:absolute;bottom:50rpx;left:0;right:0; font-size:25rpx;">一起取名字</text>
+</view>

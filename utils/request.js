@@ -1,7 +1,7 @@
-const prefix = 'http://localhost:8793' // dev
+// const prefix = 'http://localhost:8793' // dev
 // const prefix = 'http://148.70.182.55:8880' // phone
 // const prefix = 'https://name-tinder.177name.com' // pro
-// const prefix = 'https://tansuo.smackgg.cn' // temp pro
+const prefix = 'https://tansuo.smackgg.cn' // temp pro
 
 export default requestOption => new Promise((resolve, reject) => {
   let { url,data,method } = requestOption

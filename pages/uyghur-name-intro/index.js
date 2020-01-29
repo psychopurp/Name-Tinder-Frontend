@@ -10,18 +10,7 @@ Page({
     showGetUserInfoButton: false,
   },
   setUserConfig:function(e){
-    let gender= e.target.dataset.value
-    let userConfig = {
-      nameType: 0,
-      gender: (this.data.gender == '0') ? 1 : 2,
-      lastName: null,
-      isDoubleName: null
-    }
-    app.setConfig(userConfig)
-    console.log(app.globalData)
-    wx.reLaunch({
-      url: '/pages/name-swipe/index',
-    })
+  
 
   },
   onChooseGender(e) {
@@ -29,6 +18,7 @@ Page({
       gender: e.target.dataset.value,
     })
   },
+
   onChooseGenders (e) {
     this.setData({
       gender: e.target.dataset.value,
@@ -55,16 +45,20 @@ Page({
       },
     })
   },
+
   async goToNameSwipe () {
-    const { gender } = this.data
-
-    let config = getConfig()
-    config = {
-      ...config,
-      gender,
+    let gender = this.data.gender
+    let userConfig = {
+      nameType: 0,
+      gender: (this.data.gender == '0') ? 1 : 2,
+      lastName: null,
+      isDoubleName: null
     }
-    setConfig(config)
-
+    app.setConfig(userConfig)
+    app.setUserInfo(this.userInfo.userInfo)
+    console.log('goto nameswipe.......')
+    console.log(app.globalData)
+    let config =userConfig
     try {
       await request({
         url: '/api/user/userinfo',
@@ -78,11 +72,14 @@ Page({
       console.log(error)
     }
 
-    wx.switchTab({
+    wx.reLaunch({
       url: '/pages/name-swipe/index',
     })
   },
+
   bindGetUserInfo (e) {
+    console.log('getUserInfo...........')
+    console.log(e)
     // 用户未同意授权
     if (!e.detail.userInfo) {
       this.setData({

@@ -19,7 +19,7 @@ Page({
     console.dir(app.globalData)
     let friendId=e.userId
     let friendAvatar=e.avatar
-    // console.log(userAvatar)
+    console.log(e)
     this.setData({
       // myAvatar:myAvatar,
       friendAvatar:friendAvatar
@@ -29,6 +29,7 @@ Page({
       method:'POST',
       data:{userId:friendId,nameType:userConfig.nameType}
     }).then((res)=>{
+      console.log(res)
       let nameList = res.data.data.map((item) => new Name(item))
       console.log(nameList)
       this.setData({

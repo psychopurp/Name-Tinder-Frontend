@@ -2,8 +2,9 @@
   display: flex;
   flex-direction: column;
   justify-content: start;
-   align-items: center; 
+  align-items: center;
   width: 100%;
+  height: 100%;
   background: #fff;
   /* width: 100%;
   margin: 0 auto; */
@@ -33,18 +34,18 @@
 .setting-icon {
   width: 45rpx;
   height: 45rpx;
-  display: block;
+  display: flex;
   right: 50rpx;
-  top: 10rpx;
+  top: 20rpx;
   position: absolute;
 }
 
 .add-icon {
-  width: 45rpx;
-  height: 45rpx;
-  display: block;
+  width: 32rpx;
+  height: 32rpx;
+  display: flex;
   right: 130rpx;
-  top: 10rpx;
+  top: 15rpx;
   position: absolute;
 }
 
@@ -60,31 +61,33 @@
 
 .appbar-text-left {
   display: flex;
-  /* margin-left: 60rpx; *//* padding-left: 60rpx; */
-  width: 150rpx;
+  margin-left: 60rpx;
+  /* width: 150rpx; */
   align-items: center;
   justify-content: center;
   /* background: #FF0000; */
+  position: relative;
 }
 
 .appbar-text-right {
   display: flex;
-  /* margin-right: 340rpx; *//* margin-left: 30rpx; */
+  position: relative;
+  margin-left: 64rpx;
   align-items: center;
   justify-content: center;
-  width: 150rpx;
-  /* background: #FF0000; */
+  /* width: 150rpx; *//* background: #FF0000; */
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  /* justify-content: start; */
+  justify-content: start;
   align-items: center;
 }
 
 .line {
-  width: 70%;
+  width: 60%;
+  margin-left: 64rpx;
   height: 5rpx;
   margin-top: 4rpx;
   background: #000;
@@ -138,8 +141,11 @@ button::after {
   /* background: #e64340; */
   width: 100%;
   padding-bottom: 30rpx;
-border-bottom: 1rpx solid #E5E5E5;
-  /* margin: 0 auto;  */
+  /* border-bottom: 1rpx solid #E5E5E5; *//* margin: 0 auto;  */
+}
+
+button {
+  margin: 10px;
 }
 
 .list {
@@ -147,13 +153,14 @@ border-bottom: 1rpx solid #E5E5E5;
   height: 180rpx;
   /* margin: 20rpx; */
   border-radius: 10rpx;
-  line-height: 180rpx;
+  /* line-height: 180rpx; */
+  text-align: center;
   overflow: hidden;
-  /* background: #9b9b9b; */
-  background: #e64340
+  background: #e64340;
 }
 
 /*删除外层包裹视图*/
+
 .list_del {
   position: absolute;
   top: 0;
@@ -163,21 +170,29 @@ border-bottom: 1rpx solid #E5E5E5;
   position: relative;
   background-color: #fff;
   width: 100%;
+  height: 100%;
   z-index: 5;
   /* padding: 0 10rpx; */
   transition: left 0.2s ease-in-out;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
 }
 
 .list_del.del {
   background-color: #e64340;
   width: 190rpx;
-  text-align: center;
+  height: 100%;
+  /* text-align: center; */
   z-index: 4;
   right: 0;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 50rpx;
 }
 
 .list_avatar {
@@ -185,17 +200,64 @@ border-bottom: 1rpx solid #E5E5E5;
   height: 90rpx;
   border-radius: 50%;
   box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
-  vertical-align: middle; 
-  margin-right: 550rpx;
- /* margin-top: -8rpx; */
-
-
+  vertical-align: middle;
+  margin-left: 51rpx;
+  margin-right: 40rpx;
+  /* margin-top: -8rpx; */
 }
 
 .list_name {
-  position: absolute;
-  left:168rpx;
-  bottom:0rpx;
-  vertical-align: middle;
+  /* position: absolute; *//* left:168rpx; *//* bottom:0rpx; *//* vertical-align: middle; */
+}
+
+.vote {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  height: 180rpx;
+  /* line-height: 182rpx; */
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.vote-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .createBtn {
+  margin-bottom: 100rpx;
+  background: #4f88f2;
+  color: #fff;
+  width: 670rpx;
+  font-weight: normal;
+  font-size: 12pt;
+  display: flex;
+
+} */
+
+.create{
+  /* background: #9b9b9b; */
+  width: 100%;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.scroll-column{
+  /* background: #9b9b9b; */
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
 
 }

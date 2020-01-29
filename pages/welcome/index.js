@@ -14,17 +14,21 @@ Page({
   onJump (event) {
     wx.getLocation({
       type: 'wgs84',
-      success (res) {
+      success: (res) =>{
         // const latitude = res.latitude
         // const longitude = res.longitude
         // const speed = res.speed
         // const accuracy = res.accuracy
+        // console.log(res)
         const type = event.currentTarget.dataset.type
-        let config = getConfig()
-        setConfig({
-          ...config,
-          type,
-        })
+        // console.log(this)
+        // let addr = this.getAddress(res.latitude, res.longitude)
+        // console.log(addr)
+        // let config = getConfig()
+        // setConfig({
+        //   ...config,
+        //   type,
+        // })
         wx.reLaunch({
           url: URL_MAP[type],
         })
@@ -40,7 +44,7 @@ Page({
     })
   },
   onShow () {
-    const config = getConfig()
+    // const config = getConfig()
     // if (config.hasOwnProperty('type') && config.hasOwnProperty('gender')) {
     //   wx.switchTab({
     //     url: '/pages/name-swipe/index',
@@ -55,10 +59,11 @@ Page({
         let showOpenSettingButton = false
 
         // 用户主动拒绝再次引导用户允许授权
-        if (res.authSetting['scope.userLocation'] === false) {
+        if (res.authSetting['scope.userLocation'] === false) { 
+          console.log('onshow....')
           showOpenSettingButton = true
         }
-
+  
         this.setData({
           showOpenSettingButton,
         })

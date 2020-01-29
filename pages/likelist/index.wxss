@@ -25,16 +25,16 @@
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
-  margin-left: 50rpx;
-  margin-right: 50rpx;
+  margin-left: 51rpx;
+  margin-right: 44rpx;
 }
 
 .setting-icon {
-  width: 45rpx;
-  height: 45rpx;
-  display: block;
-  right: 50rpx;
-  top: 10rpx;
+  width: 43rpx;
+  height: 36rpx;
+  display: flex;
+  /* right: 50rpx; */
+  /* top: 10rpx; */
   /* position: absolute; */
 }
 

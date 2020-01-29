@@ -63,15 +63,16 @@ App({
     // // 获取用户信息
     wx.getSetting({
       success: res => {
+        console.log('wx.getSttings.......')
         console.log(res)
         if (res.authSetting['scope.userInfo']) {
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
+              console.log('wx.getUserInfo.......')
+              console.log(res)
               this.globalData.userInfo = res.userInfo
-              console.log('get init info')
-              console.log(this.globalData)
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
@@ -89,6 +90,7 @@ App({
     console.log(this.hasConfig)
 
   },
+
   async getUserinfo () {
     try {
       return await request({
@@ -100,6 +102,7 @@ App({
       }
     }
   },
+
   async init () {
     try {
       let res = await this.getUserinfo()
@@ -115,6 +118,7 @@ App({
       const session = await checkSession()
 
       if (!session || !cookie || !isLogin) {
+        console.log('登陆中.......')
         // 没有服务器登录态
         cookie = await login()
         res = await this.getUserinfo()
@@ -125,10 +129,10 @@ App({
       // this.globalData.userInfo = userInfo
 
       // console.log()
-      const config = res.data.data.userInfo.config
-      if (config && Object.keys(config).length > 0) {
-        setConfig(config)
-      }
+      // const config = res.data.data.userInfo.config
+      // if (config && Object.keys(config).length > 0) {
+      //   setConfig(config)
+      // }
 
       return Promise.resolve({
         isLogin,
@@ -139,12 +143,17 @@ App({
       return error
     }
   },
+
   onShow () {
-    this.globalData.userInfoPromise = this.init()
+    // this.globalData.userInfoPromise = this.init()
+    this.init().then((val)=>{
+      this.globalData.userConfig=val.userInfo.config
+    })
   },
   globalData: {
     userInfo: null,
-    userConfig:null
+    userConfig:null,
+    friendId:null
   },
 
   setConfig:function(userConfig={}){
@@ -162,6 +171,7 @@ App({
     return true
     console.log(userConfig)
   },
+
   setUserInfo:function(userInfo={}){
     this.globalData.userInfo=userInfo
     

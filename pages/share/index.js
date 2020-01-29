@@ -4,6 +4,10 @@ import { getConfig, setConfig } from '../../utils/index'
 import request from '../../utils/request'
 
 const app = getApp()
+const URL_MAP = [
+  '/pages/uyghur-name-intro/index',
+  '/pages/han-name-intro/index',
+]
 
 Page({
   data: {
@@ -11,15 +15,29 @@ Page({
     showGetUserInfoButton: false,
   },
   async onLoad (query) {
-    const { config, groupId } = query
-    this.groupId = groupId
-    this.config = JSON.parse(decodeURIComponent(config))
-    setConfig({
-      ...getConfig(),
-      ...this.config,
+    console.log(query)
+    console.log('share query........')
+    let {userId} = query
+    // userId = "5cef8793f7cd503d63d3f562"
+    let {userInfo,userConfig}=(await request({url:`/api/user/getUser?userId=${userId}`})).data.data
+    console.log('share.................')
+    this.userConfig=userConfig
+    this.friendInfo=userInfo
+    this.friendInfo.userId=userId
+    // console.log(this.friendInfo)
+
+    this.setData({
+      userInfo:userInfo,
     })
-    await app.globalData.userInfoPromise
-    this.getGroupDetail(groupId)
+    // app.setConfig(userConfig)
+    // this.groupId = groupId
+    // this.config = JSON.parse(decodeURIComponent(config))
+    // setConfig({
+    //   ...getConfig(),
+    //   ...this.config,
+    // })
+    // await app.globalData.userInfoPromise
+    // this.getGroupDetail(groupId)
   },
   onClick () {
     const { showGetUserInfoButton } = this.data
@@ -28,13 +46,7 @@ Page({
     }
     wx.getUserInfo({
       success: (res) => {
-        // const userInfo = res.userInfo
-        // const nickName = userInfo.nickName
-        // const avatarUrl = userInfo.avatarUrl
-        // const gender = userInfo.gender // 性别 0：未知、1：男、2：女
-        // const province = userInfo.province
-        // const city = userInfo.city
-        // const country = userInfo.country
+
         this.userInfo = res
         this.goToNameSwipe()
       },
@@ -50,39 +62,46 @@ Page({
   },
   async goToNameSwipe () {
     try {
-      const results = await Promise.all([
-        request({
-          url: '/api/user/userinfo',
-          method: 'PUT',
-          data: {
-            userInfo: this.userInfo,
-            config: this.config,
-          },
-        }),
-        request({
-          url: `/api/group/join?id=${this.groupId}`,
-        }),
-      ])
-      console.log(results[1])
-      // return
-      // 组满了
-      if (results[1].data.code === 200001) {
-        wx.showToast({
-          title: '已经有人帮他选名字啦~即将跳转到首页~',
-          icon: 'none',
-          duration: 1500,
-          mask: true,
+      // const results = await Promise.all([
+      //   request({
+      //     url: '/api/user/userinfo',
+      //     method: 'PUT',
+      //     data: {
+      //       userInfo: this.userInfo,
+      //       config: this.config,
+      //     },
+      //   }),
+      //   request({
+      //     url: `/api/group/join?id=${this.groupId}`,
+      //   }),
+      // ])
+      // console.log(results[1])
+      // // return
+      // // 组满了
+      // if (results[1].data.code === 200001) {
+      //   wx.showToast({
+      //     title: '已经有人帮他选名字啦~即将跳转到首页~',
+      //     icon: 'none',
+      //     duration: 1500,
+      //     mask: true,
+      //   })
+        // setTimeout(() => {
+        //   wx.navigateTo({
+        //     url: '/pages/welcome/index',
+        //   })
+        // }, 1500)
+        // return
+      // }
+      if(this.userConfig.nameType=='0'){
+        wx.redirectTo({
+          url: '/pages/uyghur-name-intro/index',
         })
-        setTimeout(() => {
-          wx.navigateTo({
-            url: '/pages/welcome/index',
-          })
-        }, 1500)
-        return
+      }else{
+        wx.redirectTo({
+          url: `/pages/han-name-intro/index?lastName=${this.userConfig.lastName}&userInfo=${encodeURIComponent(JSON.stringify(this.friendInfo))}`,
+        })
       }
-      wx.switchTab({
-        url: '/pages/name-swipe/index',
-      })
+    
     } catch (error) {
       console.log(error)
     }

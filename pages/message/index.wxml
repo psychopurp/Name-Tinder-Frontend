@@ -1,6 +1,6 @@
 <view class="main">
 
-  <view class="appbar">
+  <view class="appbar" style=" margin-top:20rpx;">
     <view class="column">
       <view class="appbar-text-left" style="color:{{currentIndex==1?'':'#D4D4D4'}}" bindtap="changeToFriend">亲友</view>
       <view class='line' wx:if="{{currentIndex==1}}"></view>
@@ -9,45 +9,73 @@
       <view class="appbar-text-right" style="color:{{currentIndex==2?'':'#D4D4D4'}}" bindtap="changeToVote">投票</view>
       <view class='line' wx:if="{{currentIndex==2}}"></view>
     </view>
-    <image src="../../assets/image/add.png" class="add-icon"></image>
+    <!-- <image bindtap="onAdd" src="../../assets/image/add.png" class="add-icon"></image> -->
     <navigator open-type="navigateTo" url="/pages/setting/index" class="list__setting">
       <image src="../../assets/image/setting.png" class="setting-icon"></image>
     </navigator>
+
+    
 
   </view>
 
   <!-- <view class="divLine" style="width:100%; height:2rpx; backgeound:#E0E3DA">
   </view> -->
-  <view wx:if="{{hasFriend==false}}">
+
+  <view wx:if="{{hasFriend==false&&currentIndex!=2}}">
     <view class="top-header">
       <text class="top-header-text">还未配对到亲友</text>
     </view>
-    <view class="divLine" style="width:100%; height:2rpx; backgeound:#E0E3DA">
-    </view>
 
     <button class="invite-box" open-type='share'>邀请亲友与你一起配对名字</button>
-
   </view>
 
-  <view class="list_content" wx:else>
-    <view wx:for="{{userList}}" wx:key="{{index}}" class="list">
+  <!-- 亲友 -->
+  <view class="list_content" wx:if="{{currentIndex==1}}">
+    <view wx:for="{{userList}}" wx:key="index" class="list">
 
-      <view class='list_del txt' bindtap="onTapUser" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index='{{index}}' data-item='{{item}}' style="{{item.shows}}">
+      <view class='list_del txt' bindtap="onTapUser" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index='{{index}}' data-isVote="false" data-item='{{item}}' style="{{item.shows}}">
         <image class='list_avatar' src="{{item.avatar}}"></image>
         <text class='list_name'>{{item.name}}</text>
       </view>
 
-      <view class="list_del del" data-index="{{index}}" bindtap="delItem">
+      <view class="list_del del" data-isvote="false" data-index="{{index}}" bindtap="delItem">
         删除
       </view>
-
-      <view wx:if="{{index==userList.length-1}}">
-        <view class="divLine">
-        </view>
-      </view>
-
     </view>
   </view>
+
+  <!-- 投票 -->
+  <view class="vote" style="width:100%; " wx:if="{{currentIndex==2}}">
+
+    <text wx:if="{{voteList.length==0}}" style="color:#9B9B9B; margin-top:360rpx;">点击创建投票，请亲友帮忙甄选好名字</text>
+
+    <view wx:else style="padding-top:0rpx;padding-bottom:50rpx; height:840rpx;width:100%; overflow-y:auto；">
+      <scroll-view class="" scroll-y="true" style=" height:100%;padding-bottom:100rpx;padding-top:50rpx;">
+        <view wx:for="{{voteList}}" wx:key="index" class="list">
+          <view class="item row list_del txt" style="{{item.shows}}" data-index="{{index}}" data-item="{{item}}" data-isVote="true" bindtap="onVote" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE">
+            <view class="column" style=" padding-left:60rpx;align-items: flex-start;">
+              <text style=" font-size:30rpx;">帮我们家宝贝选个名字吧!</text>
+              <text style=" width:243rpx;text-overflow:ellipsis;white-space:nowrap; color:#222222; font-size:15rpx;overflow:hidden; text-align:start;padding-left:2rpx;">{{item.nameString}}</text>
+            </view>
+            <view class="column" style="padding-left:60rpx;align-items:flex-start;">
+              <text style=" font-size:23rpx;">投票截止时间</text>
+              <text style="color:#222222; font-size:18rpx;margin-top:0rpx;">{{item.endTime}}</text>
+            </view>
+          </view>
+          <view class="list_del del" data-isvote="true" data-index="{{index}}" bindtap="delItem">
+        删除
+      </view>
+        </view>
+  
+      </scroll-view>
+    </view>
+    <view class="create">
+                <button class="createBtn" style="background:#4f88f2;width: 670rpx;font-weight: normal;font-size: 12pt;" type="primary" size="default" bindtap="toVotePage"> 创建单选投票 </button>
+        </view>
+  
+  </view>
+
+
 
 
 

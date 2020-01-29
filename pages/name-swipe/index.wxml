@@ -5,6 +5,9 @@
       <view class="top-card" style="{{componentStyle}}">
         {{currentCard.lastName+ currentCard.name}}
       </view>
+       <!-- <view class="return" bindtap="onDetail"> -->
+        <image src="../../assets/image/return.png" class="return" bindtap="onReturn"></image>
+      <!-- </view> -->
       <view wx:if="{{nameType==0}}">
         <view class="column">
           <text>音译</text>

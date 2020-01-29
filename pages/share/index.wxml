@@ -3,7 +3,7 @@
     <image class="content-bg" src="../../assets/image/share_page_bg.png" />
     <view class="info">
       <image class="avatar" src="{{userInfo.avatarUrl}}" />
-      <view>{{userInfo.nickName}}邀请你一起取名字</view>
+      <view class="title">{{userInfo.nickName}}邀请你一起取名字</view>
       <button bindtap="onClick" class="button" open-type="{{showGetUserInfoButton ? 'getUserInfo' : ''}}" bindgetuserinfo="bindGetUserInfo">
           取{{buttonName}}名
       </button>

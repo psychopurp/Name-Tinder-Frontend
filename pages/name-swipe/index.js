@@ -44,7 +44,7 @@ Page({
 
 
   onDetail:function(){
-    console.log('show detail..')
+    // console.log('show detail..')
     this.setData({
       detail:true
     })
@@ -117,8 +117,8 @@ Page({
     //   gender: 1,
     //   lastName: ''
     // }
-    console.log(app.globalData)
-    console.log(userConfig)
+    // console.log(app.globalData)
+    // console.log(userConfig)
 
     let color = (userConfig.gender == 1) ? colors[0] : colors[1]
     this.setData({
@@ -164,17 +164,18 @@ Page({
     const res = await request({
       url: `/api/names?type=${userConfig.nameType}&gender=${userConfig.gender}&lastName=${userConfig.lastName}&isDoubleName=${userConfig.isDoubleName||false}`,
     })
+    console.log(res)
     let cardList = res.data.data.map((item,index) => {
       let name = new Name(item)
       name.lastName = (userConfig.lastName == null) ? "" : userConfig.lastName
       let color=(name.gender==1)?colors[0]:colors[1]
       let idx=this.list.length+index
       name.style = this.getInitStyle(color, idx)
-      console.log(name.style)
+      // console.log(name.style)
       name.className=(index === 0) ? 'box-shadow' : ''
       return name
     })
-    console.log(cardList)
+    // console.log(cardList)
 
     
     this.list = this.list.concat(cardList)
@@ -459,6 +460,12 @@ Page({
       imageUrl: '../../assets/image/share_image.png',
     }
   },
+
+  onReturn:function(){
+    this.setData({
+      detail:false
+    })
+  }
 })
 
 

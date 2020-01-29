@@ -19,10 +19,10 @@
 
 <view class="main">
   <view class="top-avatar">
-<open-data class="avatar" type="userAvatarUrl" style="margin-right:40rpx;"></open-data>
+<open-data class="avatar" type="userAvatarUrl" style="margin-right:50rpx;"></open-data>
     <image class='avatar' src="{{friendAvatar}}"></image>
   </view>
-  <view class="common_like">
+  <view class="common_like" style="margin-top:37rpx;">
   <text>共同喜欢</text>
    <image src="../../assets/image/gender.png" class="setting-icon"></image>
   </view>

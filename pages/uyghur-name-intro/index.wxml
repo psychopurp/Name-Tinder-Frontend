@@ -29,6 +29,6 @@
   <view bindtap="onChooseGender" data-value="0" class="gender__option {{gender === '0' ? 'selected boy' : ''}}">男</view>
   <view bindtap="onChooseGender" data-value="1" class="gender__option {{gender === '1' ? 'selected girl' : ''}}">女</view>
 </view>
-<button bindtap="setUserConfig" class="button" disabled="{{gender==''}}" type="primary">
+<button class="button" disabled="{{gender==''}}" type="primary" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo">
   下一步
 </button>

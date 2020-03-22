@@ -30,7 +30,7 @@
   <view class="list_content" wx:if="{{loaded==true}}">
     <block wx:for="{{nameList}}" wx:key="{{index}}">
       <view class="like {{item.gender==1?'boy':'girl'}}">
-        {{item.name}}
+        {{item.lastName+item.name}}
       </view>
 
     </block>

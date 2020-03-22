@@ -63,6 +63,7 @@ class Name {
     this.explanation = obj.explanation?obj.explanation:""
     this.gender = obj.gender
     this.source = obj.source ? obj.source : ""
-    this.willMatch = obj.willMatch ? obj.willMatch : ""
+    this.willMatch = obj.willMatch ? obj.willMatch : "",
+    this.lastName=obj.lastName?obj.lastName:""
   }
 }
